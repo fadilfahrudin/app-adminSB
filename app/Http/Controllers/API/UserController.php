@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Actions\Fortify\PasswordValidationRules;
 use App\Helpers\ResponseFormatter;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    use PasswordValidationRules;
+
+
     public function login(Request $request){
         try{
             //Validasi input
@@ -47,6 +52,100 @@ class UserController extends Controller
                 'message' => 'something went wrong',
                 'error' =>$error
             ], 'Authantication Failed', 500);
+        }
+    }
+
+    public function register(Request $request){
+        //Request validasi
+        try {
+            $request->validate([
+                'name'=> ['required', 'string', 'max:225'],
+                'email'=> ['required', 'string', 'email', 'max:225', 'unique:users'],
+                'password' => $this->passwordRules()
+
+            ]);
+
+            //pembuatan user akun
+
+            User::create([
+                'name'=> $request->name,
+                'no_wa'=> $request->no_wa,
+                'email'=> $request->email,
+                'password' => Hash::make($request->password)
+            ]);
+
+            //cek, ambil data yang sudah tersimpan
+            $user = User::where('email', $request->email)->first();
+
+            //ambil token
+            $tokenResult = $user->createToken('authToken')->plainTextToken;
+
+            //kembalikan token beserta data user
+            return ResponseFormatter::success([
+                'access_token' => $tokenResult,
+                'token_type' => 'Bearer',
+                'user' => $user
+            ]);
+
+        } catch (Exception $error) {
+            //jika error maka jalankan ini
+            return ResponseFormatter::error([
+                'message' => 'Something went wrong',
+                'error' => $error
+            ], 'Authentication Failed', 500);
+        }
+    }
+
+    public function logout(Request $request){
+        $token = $request->user()->currentAccessToken()->delete();
+        return ResponseFormatter::success($token, 'Token Revoked');
+    }
+
+    public function fetch(Request $request){
+        return ResponseFormatter::success($request->user(), 'Data berhasil diambil');
+    }
+
+    public function updateProfile(Request $request){
+        //buat variabel data untuk menyimpan semua request
+        $data = $request->all();
+        
+        //pastikan user yang login saat ini
+        $user = Auth::user();
+
+        //jalankan update data dari variabel data
+        $user->update($data);
+
+        //jalankan pesan sukses
+        return ResponseFormatter::success($user, 'Profile Updated');
+    }
+
+    public function updatePhoto(Request $request){
+        $validator = Validator::make($request->all(), [
+            'file' =>'required|image|max:2048'
+        ]);
+
+        //cek jika gagal
+        if($validator->fails()){
+            return ResponseFormatter::error(
+                ['error' => $validator->errors()],
+                'Update photo fails',
+                401
+            );
+        }
+
+        //cek file ada atau tidak
+        if($request->file('file')){
+
+            //upload photo
+            $file = $request->file->store('assets/user','public');
+
+            //panggil model user
+            $user = Auth::user();
+            $user->profile_photo_path = $file;
+            //simpan foto ke database (url)
+            $user->update();
+
+            return ResponseFormatter::success([$file], 'Photo berhasil di upload');
         }
     }
 }
