@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\MidtransController;
 use App\Http\Controllers\API\NewsController;
 use App\Http\Controllers\API\ProgramsController;
 use App\Http\Controllers\API\TransactionController;
@@ -20,13 +21,15 @@ use Illuminate\Support\Facades\Route;
 
 //route group, yang harus login terlebih dahulu jika ingin menjalankan route di dalam group ini
 Route::middleware('auth:sanctum')->group(function(){
-Route::get('user', [UserController::class, 'fetch']);
-Route::post('user', [UserController::class, 'updateProfile']);
-Route::post('user/photo', [UserController::class, 'updatePhoto']);
-Route::post('logout', [UserController::class, 'logout']);
+    Route::get('user', [UserController::class, 'fetch']);
+    Route::post('user', [UserController::class, 'updateProfile']);
+    Route::post('user/photo', [UserController::class, 'updatePhoto']);
+    Route::post('logout', [UserController::class, 'logout']);
 
-Route::get('transaction', [TransactionController::class, 'all']);
-Route::post('transaction/{id}', [TransactionController::class, 'update']);
+    Route::post('checkout', [TransactionController::class, 'checkout']);
+
+    Route::get('transaction', [TransactionController::class, 'all']);
+    Route::post('transaction/{id}', [TransactionController::class, 'update']);
 
 
 });
@@ -38,3 +41,4 @@ Route::post('register', [UserController::class, 'register']);
 
 Route::get('program', [ProgramsController::class, 'all']);
 Route::get('news', [NewsController::class, 'all']);
+Route::post('midtrans/callback', [MidtransController::class, 'callback']); 
