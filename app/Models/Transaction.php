@@ -12,16 +12,16 @@ class Transaction extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'program_id', 'user_id', 'amount_final', 'status', 'bukti_transaksi', 'payment_url'
+        'program_id', 'user_id', 'amount_final', 'status',  'payment_url', 'doa_donatur'
     ];
 
 
     public function program(){
-        $this->hasOne(Programs::class, 'id', 'program_id');
+       return $this->hasOne(Programs::class, 'id', 'program_id');
     }
 
     public function user(){
-        $this->hasOne(User::class, 'id', 'user_id');
+       return $this->hasOne(User::class, 'id', 'user_id');
     }
 
     public function getCreatedAtAttribute($value){

@@ -25,6 +25,6 @@ class Programs extends Model
     }
 
     public function getBannerProgram(){
-        return url('') . Storage::url($this->attributes['banner_program']);
+        config('app.url') . Storage::url($this->attributes['banner_program']);
     }
 }

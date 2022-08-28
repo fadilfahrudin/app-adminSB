@@ -58,12 +58,15 @@ class UserController extends Controller
     public function register(Request $request){
         //Request validasi
         try {
-            $request->validate([
+            $validator = Validator::make($request->all(),[
                 'name'=> ['required', 'string', 'max:225'],
                 'email'=> ['required', 'string', 'email', 'max:225', 'unique:users'],
                 'password' => $this->passwordRules()
-
             ]);
+
+            if($validator->fails()){
+                return response()->json($validator->errors(), 400);
+            };
 
             //pembuatan user akun
 
@@ -120,32 +123,25 @@ class UserController extends Controller
     }
 
     public function updatePhoto(Request $request){
+       
         $validator = Validator::make($request->all(), [
-            'file' =>'required|image|max:2048'
+            'file' => 'required|image|max:2048',
         ]);
 
-        //cek jika gagal
-        if($validator->fails()){
-            return ResponseFormatter::error(
-                ['error' => $validator->errors()],
-                'Update photo fails',
-                401
-            );
+        if ($validator->fails()) {
+            return ResponseFormatter::error(['error'=>$validator->errors()], 'Update Photo Fails', 401);
         }
 
-        //cek file ada atau tidak
-        if($request->file('file')){
+        if ($request->file('file')) {
 
-            //upload photo
-            $file = $request->file->store('assets/user','public');
+            $file = $request->file->store('assets/user', 'public');
 
-            //panggil model user
+            //store your file into database
             $user = Auth::user();
             $user->profile_photo_path = $file;
-            //simpan foto ke database (url)
             $user->update();
 
-            return ResponseFormatter::success([$file], 'Photo berhasil di upload');
+            return ResponseFormatter::success([$file],'File successfully uploaded');
         }
     }
 }

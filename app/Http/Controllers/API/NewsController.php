@@ -20,7 +20,7 @@ class NewsController extends Controller
          //mencari berdasarkan id
         if($id){
             //buat variabel dengan relasi program
-            $news = News::with('program')->find($id);
+            $news = News::with(['program'])->find($id);
 
             //menegmbalikan data sukses
             if($news){
@@ -34,11 +34,17 @@ class NewsController extends Controller
                 );
             }
         }
+
         
-        $news = News::with('program');
+        
+        $news = News::with(['program']);
 
         if($program_id){
             $news->where('program_id', $program_id);
+        }
+
+        if($title){
+            $news->where('title', $title );
         }
 
         return ResponseFormatter::success(
@@ -46,5 +52,4 @@ class NewsController extends Controller
         );
     }
 
-     
 }
