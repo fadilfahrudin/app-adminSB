@@ -19,6 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('program_id');
             $table->integer('user_id');
             $table->integer('amount_final');
+            $table->text('doa_donatur')->nullable();
             $table->string('status');
             $table->text('bukti_transaksi')->nullable();
             $table->text('payment_url');
