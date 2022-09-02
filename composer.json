@@ -14,7 +14,8 @@
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.5",
         "midtrans/midtrans-php": "^2.5",
-        "sentry/sentry-laravel": "^2.13"
+        "sentry/sentry-laravel": "^2.13",
+        "tinymce/tinymce": "^6.1"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
