@@ -22,12 +22,12 @@
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="/dashboard/programs" :active="request()->routeIs('dashboard/users')">
+                    <x-jet-nav-link href="/dashboard/programs" :active="request()->routeIs('dashboard/programs')">
                         {{ __('Program') }}
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="/dashboard/berita" :active="request()->routeIs('dashboard/users')">
+                    <x-jet-nav-link href="/dashboard/news" :active="request()->routeIs('dashboard/news')">
                         {{ __('Berita') }}
                     </x-jet-nav-link>
                 </div>
