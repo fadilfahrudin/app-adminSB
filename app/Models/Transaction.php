@@ -17,11 +17,11 @@ class Transaction extends Model
 
 
     public function program(){
-       return $this->hasOne(Programs::class, 'id', 'program_id');
+        return $this->hasOne(Program::class, 'id', 'program_id');
     }
 
     public function user(){
-       return $this->hasOne(User::class, 'id', 'user_id');
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 
     public function getCreatedAtAttribute($value){
