@@ -25,10 +25,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($programs as $item)
+                        @forelse ($program as $item)
                             <tr>
                                 <td class="border px-6 py-4">{{ $item->id }}</td>
-                                <td class="border px-6 py-4">{{ $item->title }}</td>
+                                <td class="border px-6 py-4">{{ substr($item->title, 0, 35) }}</td>
                                 <td class="border px-6 py-4">{{ $item->program_by }}</td>
                                 <td class="border px-6 py-4">{{ number_format($item->target_amount) }}</td>
                                 <td class="border px-6 py-4">{{ $item->end_program }}</td>
@@ -59,7 +59,7 @@
                 </table>
             </div>
             <div class="text-center mt-5">
-                {{ $programs->links() }}
+                {{ $program->links() }}
             </div>
         </div>
     </div>
