@@ -16,7 +16,7 @@ class News extends Model
     ];
 
     public function program(){
-        $this->hasOne(Programs::class, 'id', 'program_id');
+        return $this->hasOne(Program::class, 'id', 'program_id');
     }
 
     public function getCreatedAtAttribute($value){
