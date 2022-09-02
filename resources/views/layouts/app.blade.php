@@ -17,6 +17,8 @@
     <!-- Scripts -->
     {{-- @vite(['resources/css/app.css','resources/js/app.js']) --}}
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <script src="{{ mix('js/app.js') }}" defer></script>
+    @yield('headscript')
 </head>
 
 <body class="font-sans antialiased">
@@ -41,7 +43,7 @@
     </div>
 
     @stack('modals')
-
+    @yield('bodyscript')
     @livewireScripts
 </body>
 
