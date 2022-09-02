@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\MidtransController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProgramsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Sentry\Laravel\Tracing\Middleware;
@@ -28,10 +29,11 @@ Route::prefix('dashboard')
     ->group(function(){
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('users', UserController::class);
+        Route::resource('programs', ProgramsController::class);
     });
 
 
-//Midtrans  
+//Midtrans   
 
 Route::get('midtrans/success', [MidtransController::class, 'success']);
 Route::get('midtrans/unfinish', [MidtransController::class, 'unfinish']);
