@@ -4,6 +4,7 @@ use App\Http\Controllers\API\MidtransController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Sentry\Laravel\Tracing\Middleware;
@@ -26,13 +27,15 @@ Route::get('/', function () {
 
 //dashboard
 Route::prefix('dashboard')
-    ->middleware(['auth:sanctum','admin'])
+    ->middleware(['auth:sanctum','admin']) 
     ->group(function(){
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('users', UserController::class);
         Route::resource('programs', ProgramController::class);
         Route::resource('news', NewsController::class);
 
+        Route::get('transactions/{id}/status/{status}', [TransactionController::class, 'changeStatus'])->name('transactions.changeStatus');
+        Route::resource('transactions', TransactionController::class);
     });
 
 
