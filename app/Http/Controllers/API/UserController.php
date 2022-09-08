@@ -7,8 +7,8 @@ use App\Helpers\ResponseFormatter;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Support\Facades\Validator;
 use Exception;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -50,13 +50,12 @@ class UserController extends Controller
         } catch(Exception $error){
             return ResponseFormatter::error([
                 'message' => 'something went wrong',
-                'error' =>$error
+                'error' => $error
             ], 'Authantication Failed', 500);
         }
     }
 
     public function register(Request $request){
-        //Request validasi
         try {
             $validator = Validator::make($request->all(),[
                 'name'=> ['required', 'string', 'max:225'],
@@ -65,11 +64,13 @@ class UserController extends Controller
             ]);
 
             if($validator->fails()){
-                return response()->json($validator->errors(), 400);
+                return ([
+                    'message' => 'Pastikan email dan password terisi dengan benar', 
+                    'error' => $validator->errors()
+                ]);
             };
 
             //pembuatan user akun
-
             User::create([
                 'name'=> $request->name,
                 'no_wa'=> $request->no_wa,
@@ -79,7 +80,6 @@ class UserController extends Controller
 
             //cek, ambil data yang sudah tersimpan
             $user = User::where('email', $request->email)->first();
-
             //ambil token
             $tokenResult = $user->createToken('authToken')->plainTextToken;
 
@@ -90,12 +90,11 @@ class UserController extends Controller
                 'user' => $user
             ]);
 
-        } catch (Exception $error) {
-            //jika error maka jalankan ini
+        } catch(Exception $error){
             return ResponseFormatter::error([
-                'message' => 'Something went wrong',
+                'message' => 'something went wrong',
                 'error' => $error
-            ], 'Authentication Failed', 500);
+            ], 'Authantication Failed', 400);
         }
     }
 
