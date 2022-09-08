@@ -64,10 +64,10 @@ class UserController extends Controller
             ]);
 
             if($validator->fails()){
-                return ([
-                    'message' => 'Pastikan email dan password terisi dengan benar', 
-                    'error' => $validator->errors()
-                ]);
+            return ResponseFormatter::error([
+                'message' => 'Pastikan email dan password terisi dengan benar', 
+                'error' => $validator->errors()
+            ], 'Authantication Failed', 400);
             };
 
             //pembuatan user akun
