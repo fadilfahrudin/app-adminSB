@@ -29,7 +29,7 @@ class UserController extends Controller
             $credentials = request(['email', 'password']);
             if(!Auth::attempt($credentials)){
                 return ResponseFormatter::error([
-                    'message' => 'Unauthorized'
+                    'message' => 'Unauthorized',
                 ], 'Authentication Failed', 500);
             }
 
@@ -49,7 +49,7 @@ class UserController extends Controller
 
         } catch(Exception $error){
             return ResponseFormatter::error([
-                'message' => 'something went wrong',
+                'message' => 'Pastikan email dan password benar..',
                 'error' => $error
             ], 'Authantication Failed', 500);
         }
@@ -69,6 +69,7 @@ class UserController extends Controller
                 'error' => $validator->errors()
             ], 'Authantication Failed', 400);
             };
+            
 
             //pembuatan user akun
             User::create([
