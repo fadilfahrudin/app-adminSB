@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Helpers\ResponseFormatter;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Programs;
+use App\Models\Program;
 
 class ProgramsController extends Controller
 {
@@ -27,7 +27,7 @@ class ProgramsController extends Controller
         //mencari program berdasarkan id
         if($id){
             //ambil dari model program berdasarkan id
-            $program = Programs::find($id);
+            $program = Program::find($id);
 
             //jika program ada
             if($program){
@@ -43,7 +43,7 @@ class ProgramsController extends Controller
         }
 
         //mencari berdsarkan query jika datanya true
-        $program = Programs::query();
+        $program = Program::query();
 
         //mencari berdasarkan judul (yang serupa)
         if($title){
