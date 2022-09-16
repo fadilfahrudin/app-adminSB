@@ -16,6 +16,13 @@ class Program extends Model
         'title', 'program_by', 'types', 'description', 'target_amount', 'collage_amount', 'end_program', 'banner_program' 
     ];
 
+     public function toArray()
+    {
+        $toArray = parent::toArray();
+        $toArray['banner_program'] = $this->banner_program;
+        return $toArray;
+    }
+
      public function getCreatedAtAttribute($value){
         return Carbon::parse($value)->timestamp;
     }
@@ -24,7 +31,7 @@ class Program extends Model
         return Carbon::parse($value)->timestamp;
     }
 
-    public function getBannerProgramAttribute(){
-        return config('app.url') . Storage::url($this->attributes['banner_program']);
+    public function getBannerProgramAttribute($image){
+        return url('') . Storage::url($this->attributes['banner_program']);
     }
 }
