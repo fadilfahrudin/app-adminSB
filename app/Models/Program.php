@@ -24,7 +24,7 @@ class Program extends Model
         return Carbon::parse($value)->timestamp;
     }
 
-    public function getBannerProgram(){
-        config('app.url') . Storage::url($this->attributes['banner_program']);
+    public function getBannerProgramAttribute(){
+        return config('app.url') . Storage::url($this->attributes['banner_program']);
     }
 }
