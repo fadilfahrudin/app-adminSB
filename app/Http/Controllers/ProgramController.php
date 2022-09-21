@@ -81,11 +81,12 @@ class ProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProgramRequest $request, Program $program)
+    public function update(Request $request, Program $program)
     {
         $data = $request->all();
 
-        if($request->file('banner_program')){
+        if($request->file('banner_program'))
+        {
             $data['banner_program'] = $request->file('banner_program')->store('assets/program', 'public');
         }
 
