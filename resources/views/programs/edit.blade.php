@@ -3,7 +3,7 @@
     <x-head.tinymce-config />
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Program &raquo; {{ $item->title }} &raquo; Edit
+            Program &raquo; {{ $item->title }} &raquo; Ubah
         </h2>
     </x-slot>
 
@@ -85,7 +85,8 @@
                             <input value="{{ old('types') ?? $item->types }}" name="types"
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 id="grid-last-name" type="text" placeholder="Masukan Tipe program">
-                            <p class="text-gray-600 text-xs italic">contoh: banyak_diminati, program_baru, donasi_rutin
+                            <p class="text-gray-600 text-xs italic">contoh data yang di input: banyak_diminati,
+                                program_baru, program_pilihan
                             </p>
                         </div>
                     </div>
@@ -113,7 +114,7 @@
                         <div class="w-full px-3 text-right">
                             <button type="submit"
                                 class="bg-blue-500 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded">
-                                Save User
+                                Simpan Perubahan
                             </button>
                         </div>
                     </div>

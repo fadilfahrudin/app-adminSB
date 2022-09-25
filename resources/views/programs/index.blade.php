@@ -9,7 +9,7 @@
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="mb-10">
                 <a href="{{ route('programs.create') }}"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">+ Create User
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">+ Tambah Program
                 </a>
             </div>
             <div class="bg-white">
@@ -34,7 +34,7 @@
                                 <td class="border px-6 py-4">{{ $item->end_program }}</td>
                                 <td class="border px-6 py-4 text-center">
                                     <a href="{{ route('programs.edit', $item->id) }}"
-                                        class="inline-block bg-blue-500 hover:bg-blue-700 text-white py-2 px-2 mx-2 rounded">Edit
+                                        class="inline-block bg-blue-500 hover:bg-blue-700 text-white py-2 px-2 mx-2 rounded">Ubah
                                     </a>
 
                                     <form action="{{ route('programs.destroy', $item->id) }}" method="POST"

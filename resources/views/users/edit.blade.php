@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            User &raquo; {{ $item->name }} &raquo; Edit
+            User &raquo; {{ $item->name }} &raquo; Ubah
         </h2>
     </x-slot>
 
@@ -113,7 +113,7 @@
                         <div class="w-full px-3 text-right">
                             <button type="submit"
                                 class="bg-blue-500 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded">
-                                Update User
+                                Simpan Perubahan
                             </button>
                         </div>
                     </div>
