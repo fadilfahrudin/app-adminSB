@@ -18,7 +18,7 @@ class TransactionController extends Controller
 
         //menentukan variabel
         $id = $request->input('id');
-        $limit = $request->input('limit', 6);
+        $limit = $request->input('limit');
         $program_id = $request->input('program_id');
         $status = $request->input('status');
 
@@ -83,6 +83,7 @@ class TransactionController extends Controller
             'amount_final' => $request->amount_final,
             'doa_donatur' => $request->doa_donatur,
             'status' => $request->status,
+            'bank_transfer' => $request->bank_transfer,
             'payment_url' => '',
         ]);
 
@@ -94,27 +95,25 @@ class TransactionController extends Controller
 
         //panggil transaksi yang telah di buat
         $transaction = Transaction::with(['program', 'user'])->find($transaction->id);
-
-        //membuat transaksi ke midtrans
-        $midtrans = [
-            'transaction_details' => [
-                'order_id' => $transaction->id,
-                'gross_amount' => (int) $transaction->amount_final,
-            ],
-
-            'customers_details' => [
-                'first_name' => $transaction->user->name,
-                'email' => $transaction->user->email,
-            ],
-            'enabled_payment' => ['gopay', 'bank_transfer'],
-            'vtweb' => [],
-        ];
-
+        
         //memanggil Midtrans
+        $midtrans = array(
+            'transaction_details' => array(
+                'order_id' =>  $transaction->id,
+                'gross_amount' => (int) $transaction->amount_final,
+            ),
+            'customer_details' => array(
+                'first_name'    => $transaction->user->name,
+                'email'         => $transaction->user->email
+            ),
+            'enabled_payments' => array('gopay','bank_transfer'),
+            'vtweb' => array()
+        );
 
         try {
             //Ambil halaman payment midtrans
             $paymentUrl = Snap::createTransaction($midtrans)->redirect_url;
+            
             $transaction->payment_url = $paymentUrl;
             $transaction->save();
             
