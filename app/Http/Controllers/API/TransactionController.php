@@ -80,11 +80,15 @@ class TransactionController extends Controller
         $transaction = Transaction::create([
             'program_id' => $request->program_id,
             'user_id' => $request->user_id,
+            'user_name' => $request->user_name,
+            'user_email' => $request->user_email,
+            'phone_user' => $request->phone_user,
             'amount_final' => $request->amount_final,
             'doa_donatur' => $request->doa_donatur,
             'status' => $request->status,
             'bank_transfer' => $request->bank_transfer,
             'payment_url' => '',
+            'expired_date' => date('Y-m-d H:m:s', strtotime(date('Y-m-d H:m:s') . '+1 day')),
         ]);
 
         //konfigurasi midtrans

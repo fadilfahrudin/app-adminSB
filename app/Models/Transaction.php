@@ -12,7 +12,7 @@ class Transaction extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'program_id', 'user_id', 'amount_final', 'status',  'payment_url', 'doa_donatur', 'bank_transfer'
+        'program_id', 'user_id', 'user_name', 'phone_user', 'user_email' ,'amount_final', 'status',  'payment_url', 'doa_donatur', 'bank_transfer', 'expired_date',
     ];
 
 
@@ -33,5 +33,6 @@ class Transaction extends Model
         return Carbon::parse($updated_at)
             ->getPreciseTimestamp(3);
     }
+
 
 }
