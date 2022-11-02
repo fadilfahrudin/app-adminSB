@@ -57,12 +57,6 @@ class MidtransController extends Controller
             $transaction->status = 'CENCCELLED ';
         }
 
-
-        if($status == 'settlement' ){
-            
-        }
-
-
         //simpan transaksi
         $transaction->save();
     }
