@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Midtrans\Config;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Program;
 use App\Models\Transaction;
 use Midtrans\Notification;
 
@@ -40,6 +41,12 @@ class MidtransController extends Controller
             }
         }else if($status == 'settlement') {
             $transaction->status = 'SUCCESS ';
+            $program = Program::findOrFail($transaction->program_id);
+
+            $donasiSaatIni = $program->collage_amount; 
+            $totalDonasi = $donasiSaatIni + $transaction->amount_final;
+            $program->collage_amount = $totalDonasi;
+            $program->save(); 
         }else if($status == 'pending') {
             $transaction->status = 'PENDING ';
         }else if($status == 'deny') {
@@ -49,6 +56,12 @@ class MidtransController extends Controller
         }else if($status == 'cencel') {
             $transaction->status = 'CENCCELLED ';
         }
+
+
+        if($status == 'settlement' ){
+            
+        }
+
 
         //simpan transaksi
         $transaction->save();

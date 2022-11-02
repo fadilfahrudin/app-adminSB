@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Program;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
@@ -91,9 +92,19 @@ class TransactionController extends Controller
     }
 
     public function changeStatus(Request $request, $id, $status){
+    
         $transaction = Transaction::findOrFail($id);
-        $transaction->status = $status;
-        $transaction->save();
+        if($status === 'success'){
+            $transaction->status = $status;
+            $program = Program::findOrFail($transaction->program_id);
+            
+            $donasiSaatIni = $program->collage_amount; 
+            $totalDonasi = $donasiSaatIni + $transaction->amount_final;
+            $program->collage_amount = $totalDonasi;
+            $program->save(); 
+        }
+
+        $transaction->save(); 
         
         return redirect()->route('transactions.index');
     }
