@@ -48,7 +48,7 @@ class NewsController extends Controller
         }
 
         return ResponseFormatter::success(
-            $news->paginate($limit), 'Data transaksi berhasil di ambil'
+            $news->paginate($limit), 'Data  berhasil di ambil'
         );
     }
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -26,4 +27,8 @@ class News extends Model
     public function getUpdatedAtAttribute($value){
         return Carbon::parse($value)->timestamp;
     }
+
+    public function getPictureAttribute($image){
+        return url('') . Storage::url($this->attributes['picture']);
+    } 
 }
