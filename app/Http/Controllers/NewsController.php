@@ -84,7 +84,7 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(NewsRequest $request, News $news)
+    public function update(Request $request, News $news)
     {
         $data = $request->all();
 
