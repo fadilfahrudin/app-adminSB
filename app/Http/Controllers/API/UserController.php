@@ -65,7 +65,7 @@ class UserController extends Controller
 
             if($validator->fails()){
             return ResponseFormatter::error([
-                'message' => 'Pastikan email dan password terisi dengan benar', 
+                'message' => 'Pastikan data terisi dengan benar', 
                 'error' => $validator->errors()
             ], 'Authantication Failed', 400);
             };
@@ -93,7 +93,7 @@ class UserController extends Controller
 
         } catch(Exception $error){
             return ResponseFormatter::error([
-                'message' => 'something went wrong',
+                'message' => 'Pastikan data terisi dengan benar',
                 'error' => $error
             ], 'Authantication Failed', 400);
         }
