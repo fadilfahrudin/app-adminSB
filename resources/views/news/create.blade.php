@@ -3,7 +3,7 @@
     <x-head.tinymce-config />
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {!! __('Berita &raquo; Create') !!}
+            {!! __('Berita &raquo; Tambah ') !!}
         </h2>
     </x-slot>
 
@@ -101,7 +101,7 @@
                         <div class="w-full px-3 text-right">
                             <button type="submit"
                                 class="bg-blue-500 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded">
-                                Save dan Terbitkan Berita
+                                Simpan dan Terbitkan
                             </button>
                         </div>
                     </div>
