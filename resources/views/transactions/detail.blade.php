@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Donasi &raquo; {{ $item->program->title }} by {{ $item->user->name }}
+            Donasi &raquo; {{ $item->program->title }} by {{ $item->user_name }}
         </h2>
     </x-slot>
 
